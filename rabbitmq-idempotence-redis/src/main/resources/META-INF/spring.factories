@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  org.springframework.amqp.rabbit.ext.idempotent.redis.RedisIdempotentConfiguration
