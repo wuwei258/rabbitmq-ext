@@ -28,7 +28,7 @@ public class RedisIdempotentConfiguration {
     public DefaultRedisScript<String> redisScript() {
         DefaultRedisScript redisScript = new DefaultRedisScript<String>();
         redisScript.setResultType(String.class);
-        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/idempotence.lua")));
+        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("lua/idempotent.lua")));
         return redisScript;
     }
 
