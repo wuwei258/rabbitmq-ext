@@ -3,7 +3,6 @@ package org.springframework.amqp.rabbit.ext.twopc.transaction;
 import org.springframework.amqp.rabbit.ext.twopc.transaction.message.LocalTransactionState;
 import org.springframework.amqp.rabbit.ext.twopc.transaction.message.TransactionId;
 
-
 /**
  * @ClassName TransactionListener
  * @Author wuwei

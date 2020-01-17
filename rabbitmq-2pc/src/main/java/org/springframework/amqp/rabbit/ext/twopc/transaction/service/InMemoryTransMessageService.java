@@ -27,6 +27,13 @@ public class InMemoryTransMessageService extends AbstractTransMessageServiceImpl
     }
 
     @Override
+    protected void sendMessageEntity(String transactionId) {
+        TransMessageEntity transMessageEntity = DATA_BASE.get(transactionId);
+        transMessageEntity.setMessageState(MessageState.SEND);
+        DATA_BASE.put(transactionId, transMessageEntity);
+    }
+
+    @Override
     protected void commitMessageEntity(String transactionId) {
         TransMessageEntity transMessageEntity = DATA_BASE.get(transactionId);
         transMessageEntity.setMessageState(MessageState.COMMIT);

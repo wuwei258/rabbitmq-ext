@@ -9,9 +9,6 @@ import org.springframework.amqp.rabbit.ext.twopc.transaction.service.TransMessag
 import org.springframework.amqp.rabbit.ext.twopc.utils.JacksonUtil;
 
 import javax.annotation.Resource;
-import java.util.HashMap;
-import java.util.Map;
-
 
 /**
  * @ClassName AbstractTransactionMessageSender
@@ -22,8 +19,6 @@ import java.util.Map;
 @Slf4j
 public abstract class AbstractTransactionMessageSender<T extends TransactionId> extends AbstractRabbitSenderService<T>
     implements TransactionMessageSender<T> {
-
-    private static final Map<String, Class> CLASS_MAP = new HashMap<>();
 
     @Resource
     private TransMessageService transMessageService;
@@ -40,7 +35,7 @@ public abstract class AbstractTransactionMessageSender<T extends TransactionId> 
         transMessageService.prepareMessage(transMessageEntity);
         // 2.执行本地事物
         LocalTransactionState localTransactionState = transactionListener.executeLocalTransaction(message, null);
-        // 3.根据本地事务状态判断是否需要commit
+        // 3.根据本地事务状态判断是否需要commit即发送至mq
         afterLocalTransaction(localTransactionState, message, transMessageEntity);
     }
 
@@ -62,7 +57,7 @@ public abstract class AbstractTransactionMessageSender<T extends TransactionId> 
             case COMMIT_MESSAGE:
                 try {
                     sendToMq(message);
-                    transMessageService.commitMessage(transMessageEntity.getTransactionId());
+                    transMessageService.sendMessage(transMessageEntity.getTransactionId());
                 } catch (Exception e) {
                     log.error("发送消息至MQ失败", e);
                     transMessageService.resendMessage(transMessageEntity.getTransactionId());

@@ -2,6 +2,12 @@ package org.springframework.amqp.rabbit.ext.twopc.transaction.service;
 
 import org.springframework.amqp.rabbit.ext.twopc.transaction.message.TransMessageEntity;
 
+/**
+ * @className AbstractTransMessageServiceImpl
+ * @author wuwei
+ * @description
+ * @date  2020/1/17 15:55
+ **/
 public abstract class AbstractTransMessageServiceImpl implements TransMessageService {
 
     @Override
@@ -10,6 +16,13 @@ public abstract class AbstractTransMessageServiceImpl implements TransMessageSer
     }
 
     protected abstract void prepareMessageEntity(TransMessageEntity entity);
+
+    @Override
+    public void sendMessage(String transactionId) {
+        sendMessageEntity(transactionId);
+    }
+
+    protected abstract void sendMessageEntity(String transactionId);
 
     @Override
     public void commitMessage(String transactionId) {

@@ -4,6 +4,12 @@ import org.springframework.amqp.rabbit.ext.twopc.transaction.message.TransMessag
 
 import java.util.List;
 
+/**
+ * @className TransMessageService
+ * @author wuwei
+ * @description
+ * @date  2020/1/17 15:55
+ **/
 public interface TransMessageService {
 
     /**
@@ -12,6 +18,14 @@ public interface TransMessageService {
      * @param entity
      */
     void prepareMessage(TransMessageEntity entity);
+
+
+    /**
+     * 消息已投递至mq 等待mq返回confirm确认
+     *
+     * @param transactionId
+     */
+    void sendMessage(String transactionId);
 
     /**
      * 事务消息改为commit状态，已发送至交换机且交换机已确认接收
