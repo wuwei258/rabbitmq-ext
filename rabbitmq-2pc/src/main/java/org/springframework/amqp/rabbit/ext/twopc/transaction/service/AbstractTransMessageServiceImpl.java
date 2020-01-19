@@ -3,10 +3,10 @@ package org.springframework.amqp.rabbit.ext.twopc.transaction.service;
 import org.springframework.amqp.rabbit.ext.twopc.transaction.message.TransMessageEntity;
 
 /**
- * @className AbstractTransMessageServiceImpl
  * @author wuwei
+ * @className AbstractTransMessageServiceImpl
  * @description
- * @date  2020/1/17 15:55
+ * @date 2020/1/17 15:55
  **/
 public abstract class AbstractTransMessageServiceImpl implements TransMessageService {
 
@@ -45,4 +45,24 @@ public abstract class AbstractTransMessageServiceImpl implements TransMessageSer
 
     protected abstract void resendMessageEntity(String transactionId);
 
+    @Override
+    public void doneMessage(String transactionId) {
+        doneMessageEntity(transactionId);
+    }
+
+    protected abstract void doneMessageEntity(String transactionId);
+
+    @Override
+    public void customerRetryMessage(String transactionId) {
+        customerRetryMessageEntity(transactionId);
+    }
+
+    protected abstract void customerRetryMessageEntity(String transactionId);
+
+    @Override
+    public Boolean shouldCheckMessage(String correlationId) {
+        return shouldCheckMessageEntity(correlationId);
+    }
+
+    protected abstract Boolean shouldCheckMessageEntity(String correlationId);
 }

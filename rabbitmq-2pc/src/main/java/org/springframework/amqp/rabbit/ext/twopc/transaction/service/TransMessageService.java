@@ -5,10 +5,10 @@ import org.springframework.amqp.rabbit.ext.twopc.transaction.message.TransMessag
 import java.util.List;
 
 /**
- * @className TransMessageService
  * @author wuwei
+ * @className TransMessageService
  * @description
- * @date  2020/1/17 15:55
+ * @date 2020/1/17 15:55
  **/
 public interface TransMessageService {
 
@@ -18,7 +18,6 @@ public interface TransMessageService {
      * @param entity
      */
     void prepareMessage(TransMessageEntity entity);
-
 
     /**
      * 消息已投递至mq 等待mq返回confirm确认
@@ -47,6 +46,25 @@ public interface TransMessageService {
      * @param transactionId
      */
     void resendMessage(String transactionId);
+
+    /**
+     * 消息设置为重试，幂等判断时需要忽略
+     * @param transactionId
+     */
+    void customerRetryMessage(String transactionId);
+
+    /**
+     * 验证消息是否需要幂等验证
+     * @param correlationId
+     */
+    Boolean shouldCheckMessage(String correlationId);
+
+    /**
+     * 事务消息被消费者成功消费
+     *
+     * @param transactionId
+     */
+    void doneMessage(String transactionId);
 
     /**
      * 查询需重新发送的事务消息

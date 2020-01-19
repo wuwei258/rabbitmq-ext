@@ -1,9 +1,8 @@
 package org.springframework.amqp.rabbit.ext.twopc.transaction.message;
 
-
 /**
- * @className MessageState
  * @author wuwei
+ * @className MessageState
  * @description
  * @date 2019/12/20 14:28
  **/
@@ -25,7 +24,12 @@ public enum MessageState {
      * confirm失败消息未成功放入交换机
      * 等待下次丢入
      */
-    RE_SEND(3);
+    RE_SEND(3),
+
+    /**
+     * 消费者成功消费
+     */
+    DONE(4);
 
     private int code;
 

@@ -22,6 +22,10 @@ public class TransMessageEntity implements Serializable {
     private String clazz;
     private Integer sendTimes;
     private String messageContent;
+    /**
+     * 客户端重试状态
+     */
+    private boolean customerRetry;
     private MessageState messageState;
     private LocalTransactionState localTransactionState;
 

@@ -24,7 +24,6 @@ class TwoPcApplicationTests {
     void mqTest() throws InterruptedException {
         SendMessage sendMessage = SendMessage.builder().id(IdWorker.getId()).content("i am test message").build();
         producerSendService.sendMessageInTransaction(sendMessage);
-        producerSendService.sendMessageInTransaction(sendMessage);
         Thread.sleep(100000L);
     }
 

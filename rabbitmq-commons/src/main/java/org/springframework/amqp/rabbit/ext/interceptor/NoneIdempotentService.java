@@ -13,4 +13,5 @@ public class NoneIdempotentService implements IdempotentService {
     public boolean idempotentCheck(String business, String key) {
         return true;
     }
+
 }

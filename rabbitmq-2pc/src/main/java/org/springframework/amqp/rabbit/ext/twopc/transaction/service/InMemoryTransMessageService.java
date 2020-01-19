@@ -53,6 +53,31 @@ public class InMemoryTransMessageService extends AbstractTransMessageServiceImpl
     }
 
     @Override
+    protected void doneMessageEntity(String transactionId) {
+        TransMessageEntity transMessageEntity = DATA_BASE.get(transactionId);
+        transMessageEntity.setMessageState(MessageState.DONE);
+        DATA_BASE.put(transactionId, transMessageEntity);
+    }
+
+    @Override
+    protected void customerRetryMessageEntity(String transactionId) {
+        TransMessageEntity transMessageEntity = DATA_BASE.get(transactionId);
+        if (null != transMessageEntity) {
+            transMessageEntity.setCustomerRetry(true);
+            DATA_BASE.put(transactionId, transMessageEntity);
+        }
+    }
+
+    @Override
+    protected Boolean shouldCheckMessageEntity(String correlationId) {
+        TransMessageEntity transMessageEntity = DATA_BASE.get(correlationId);
+        if (null == transMessageEntity) {
+            return true;
+        }
+        return transMessageEntity.isCustomerRetry();
+    }
+
+    @Override
     public List<TransMessageEntity> findResendMessages() {
         Collection<TransMessageEntity> values = DATA_BASE.values();
         return values.stream()

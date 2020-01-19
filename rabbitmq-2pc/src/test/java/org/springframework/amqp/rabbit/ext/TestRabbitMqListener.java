@@ -13,10 +13,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestRabbitMqListener {
 
-    @RabbitListener(queues = {"TRANS_QUEUE"}, containerFactory = ListenerSelector.multiThreadAndManualAcknowledge)
+    @RabbitListener(queues = {"TRANS_QUEUE"}, containerFactory = ListenerSelector.multiThread)
     public void listener(MessageWrap<SendMessage> messageWrap) {
 
-        System.out.println(messageWrap);
-        throw new RuntimeException("listener抛出异常");
+        System.out.println(
+            "-------------------------------------------------->>>" + messageWrap + "------------>>" + messageWrap
+                .getMessage().getId());
+        throw new RuntimeException("抛出异常");
     }
 }

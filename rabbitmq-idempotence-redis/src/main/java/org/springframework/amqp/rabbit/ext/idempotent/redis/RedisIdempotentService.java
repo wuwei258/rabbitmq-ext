@@ -24,7 +24,7 @@ public class RedisIdempotentService implements IdempotentService {
     private Integer expire;
 
     public RedisIdempotentService(StringRedisTemplate stringRedisTemplate, DefaultRedisScript<String> redisScript,
-                                  Integer expire) {
+        Integer expire) {
         this.stringRedisTemplate = stringRedisTemplate;
         this.redisScript = redisScript;
         this.expire = expire;
