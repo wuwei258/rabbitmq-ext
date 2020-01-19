@@ -21,10 +21,6 @@ public class MessageConfirmCallBack implements RabbitTemplate.ConfirmCallback {
     @Resource
     private TransMessageService transMessageService;
 
-    public MessageConfirmCallBack(TransMessageService transMessageService) {
-        this.transMessageService = transMessageService;
-    }
-
     @Override
     public void confirm(CorrelationData correlationData, boolean ack, String cause) {
         log.info("confirm确认回调......");
