@@ -101,5 +101,10 @@ public abstract class AbstractTransactionMessageSender<T extends TransactionId> 
     @Override
     public abstract String queue();
 
+    /**
+     * 本地事务执行器
+     *
+     * @return
+     */
     public abstract TransactionListener transactionListener();
 }
